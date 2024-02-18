@@ -37,18 +37,6 @@ func main() {
 		},
 	}
 
-	cmdCurrent := &cobra.Command{
-		Use:   "current",
-		Short: "get the current running todo",
-		Run: func(cmd *cobra.Command, args []string) {
-			if len(args) == 0 {
-				// check for the current todo and return to the stdout would be usefull for bars and scripts
-			} else {
-				fmt.Println("Error: the current command does not accept any commands")
-			}
-		},
-	}
-
-	rootCmd.AddCommand(cmdStart, cmdStop, cmdCurrent)
+	rootCmd.AddCommand(cmdStart, cmdStop, getCurrentTodoCmd())
 	rootCmd.Execute()
 }
