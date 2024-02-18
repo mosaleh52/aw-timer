@@ -40,6 +40,8 @@ func startTimer(apiUrl, bucketId, dateLayout, taskString string) {
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
+	fmt.Println("todo started")
+
 	// appendToFileFunc(timeFilePath, modifiedTodo.String())
 	// if err != nil {
 	// 	fmt.Fprintln(os.Stderr, "error appending to file", err)
