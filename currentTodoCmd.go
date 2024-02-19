@@ -53,7 +53,7 @@ func getCurrentTodoCmd() *cobra.Command {
 	}
 
 	cmd.Flags().StringVarP(&req, "require", "r", "all", "specifie the required atter from [uuid,id,label]")
-	cmd.Flags().StringVarP(&coloringMethod, "color", "c", "n", "specify the coloring method form [normal , i3 , none] default to normal ")
+	cmd.Flags().StringVarP(&coloringMethod, "color", "c", "term", "specify the coloring method form [normal , i3 , none] default to normal ")
 	cmd.Flags().StringVarP(&apiUrl, "api-url", "u", "http://127.0.0.1:5600/api/0/", "specify the api url ")
 	cmd.Flags().StringVarP(&bucketId, "bucket-id", "b", "aw-stopwatch", "specify the bucket-id")
 	cmd.Flags().StringVarP(&dateLayout, "date-Layout", "d", "2006-01-02T15:04:05.999Z", "specify the dateLayout used for formatting in aw server")
