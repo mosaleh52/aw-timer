@@ -141,11 +141,13 @@ func pretyPrint(str, color, method string) {
 		os.Exit(0)
 	case "term":
 		chosenColor = selectedColor["term"]
+		fmt.Println(chosenColor + str + Reset)
+		os.Exit(0)
+	case "none":
+		fmt.Println(str)
+		os.Exit(0)
 	default:
 		fmt.Println("Invalid method specified")
 		os.Exit(1)
 	}
-
-	fmt.Println(chosenColor + str + Reset)
-	os.Exit(0)
 }
