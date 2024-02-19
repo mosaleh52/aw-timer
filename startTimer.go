@@ -25,8 +25,7 @@ func startTimer(apiUrl, bucketId, dateLayout, taskString string) {
 		os.Exit(-1)
 	}
 	timeStamp := " timeStamp:" + time.Now().UTC().Format(dateLayout)
-	running := " running:true"
-	modifiedTodo, err := todotxt.ParseTask(todoItem.String() + timeStamp + running)
+	modifiedTodo, err := todotxt.ParseTask(todoItem.String() + timeStamp)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "error in modifying to todo", err)
 		os.Exit(-1)
@@ -41,14 +40,4 @@ func startTimer(apiUrl, bucketId, dateLayout, taskString string) {
 		fmt.Println("Error:", err)
 	}
 	fmt.Println("todo started")
-
-	// appendToFileFunc(timeFilePath, modifiedTodo.String())
-	// if err != nil {
-	// 	fmt.Fprintln(os.Stderr, "error appending to file", err)
-	// 	os.Exit(-1)
-	// } else {
-	// 	fmt.Fprintln(os.Stderr, "there is already running todo :", getCurrentTimmer(timeFilePath))
-	// 	os.Exit(-1)
-	// }
-	// }
 }

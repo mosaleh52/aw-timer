@@ -45,7 +45,7 @@ type TodoEvent struct {
 }
 
 func (task TodoEvent) MarshalJSON() ([]byte, error) {
-	dateLayout := "2006-01-02T15:04:05.999Z"
+	dateLayout := "2006-01-02T15:04:05.999999-07:00"
 
 	type InternalTodoEvent struct {
 		Label          string            `json:"label"`
@@ -64,7 +64,7 @@ func (task TodoEvent) MarshalJSON() ([]byte, error) {
 	internalEvent := InternalTodoEvent{
 		Label:          task.Task.Todo,
 		Uuid:           task.Task.AdditionalTags["uuid"],
-		Running:        task.Task.AdditionalTags["running"],
+		Running:        "true",
 		Priority:       task.Task.Priority,
 		Projects:       task.Task.Projects,
 		Contexts:       task.Task.Contexts,

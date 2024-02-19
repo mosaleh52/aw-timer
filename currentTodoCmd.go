@@ -22,8 +22,11 @@ func getCurrentTodoCmd() *cobra.Command {
 				case "id":
 					fmt.Println(response.ID)
 					os.Exit(1)
-				case "uuid":
+				case "label":
 					fmt.Println(response.Data["label"])
+					os.Exit(1)
+				case "uuid":
+					fmt.Println(response.Data["uuid"])
 					os.Exit(1)
 				default:
 					output, err := json.Marshal(responses)
