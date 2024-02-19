@@ -10,6 +10,7 @@ import (
 
 func getCurrentTodoCmd() *cobra.Command {
 	var req string
+	var coloringMethod string
 	var apiUrl, bucketId, dateLayout string
 	cmd := &cobra.Command{
 		Use:   "current",
@@ -23,7 +24,7 @@ func getCurrentTodoCmd() *cobra.Command {
 					fmt.Println(response.ID)
 					os.Exit(1)
 				case "label":
-					fmt.Println(response.Data["label"])
+					pretyPrint(response.Data["label"].(string), "green", coloringMethod)
 					os.Exit(1)
 				case "uuid":
 					fmt.Println(response.Data["uuid"])
@@ -38,7 +39,7 @@ func getCurrentTodoCmd() *cobra.Command {
 					os.Exit(1)
 				}
 			} else if len(responses) == 0 {
-				fmt.Println("no running todo")
+				pretyPrint("no running todo", "red", coloringMethod)
 			} else {
 				fmt.Println("have not implemented multibel todos yet you should focus in one \nher is your todos in json")
 				output, err := json.Marshal(responses)
@@ -52,6 +53,7 @@ func getCurrentTodoCmd() *cobra.Command {
 	}
 
 	cmd.Flags().StringVarP(&req, "require", "r", "all", "specifie the required atter from [uuid,id,label]")
+	cmd.Flags().StringVarP(&coloringMethod, "color", "c", "n", "specify the coloring method form [normal , i3 , none] default to normal ")
 	cmd.Flags().StringVarP(&apiUrl, "api-url", "u", "http://127.0.0.1:5600/api/0/", "specify the api url ")
 	cmd.Flags().StringVarP(&bucketId, "bucket-id", "b", "aw-stopwatch", "specify the bucket-id")
 	cmd.Flags().StringVarP(&dateLayout, "date-Layout", "d", "2006-01-02T15:04:05.999Z", "specify the dateLayout used for formatting in aw server")
