@@ -8,6 +8,8 @@ import (
 	"github.com/1set/todotxt"
 )
 
+// TODO:research why rust impemention dosnot work
+
 func startTimer(apiUrl, bucketId, dateLayout, taskString string) {
 	todoItem, err := todotxt.ParseTask(taskString)
 	if err != nil {
@@ -38,6 +40,7 @@ func startTimer(apiUrl, bucketId, dateLayout, taskString string) {
 	err = createAwEvent(apiUrl, bucketId, payload)
 	if err != nil {
 		fmt.Println("Error:", err)
+		os.Exit(-1)
 	}
 	fmt.Println("todo started")
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// TODO:handel when there is no todo
 func stopTimerCmd() *cobra.Command {
 	var apiUrl, bucketId, dateLayout string
 	cmd := &cobra.Command{
