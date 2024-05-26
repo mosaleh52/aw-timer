@@ -76,22 +76,6 @@ Flags:
   -r, --require string       specifie the required atter from [uuid,id,label] (default "all")
 ```
 
-### `summery`
-
-Print specified fields.
-
-```bash
-Usage: aw-timer summery [flags]
-
-Flags:
-  -u, --api-url string       specify the api url  (default "http://127.0.0.1:5600/api/0/")
-  -b, --bucket-id string     specify the bucket-id (default "aw-stopwatch")
-  -c, --color string         specify the coloring method form [normal , i3 , none] default to normal  (default "term")
-  -d, --date-Layout string   specify the dateLayout used for formatting in aw server (default "2006-01-02T15:04:05.999Z")
-  -h, --help                 help for current
-  -r, --require string       specifie the required atter from [uuid,id,label] (default "all")
-```
-
 ## i3 blocks
 
 ```
