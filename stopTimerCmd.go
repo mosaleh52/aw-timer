@@ -14,7 +14,7 @@ func stopTimerCmd() *cobra.Command {
 		Short: "stop a task",
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) == 0 {
-				stopTimer(apiUrl, bucketId, dateLayout, getCurrentTodo(apiUrl, bucketId, dateLayout)[0].ID)
+				stopTimer(apiUrl, bucketId, dateLayout, getCurrentTodo(apiUrl, bucketId, dateLayout)[0].ID, false)
 			} else {
 				fmt.Println("Error: you can only stop timer for one todo")
 			}

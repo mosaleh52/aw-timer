@@ -7,6 +7,6 @@ import (
 func main() {
 	rootCmd := &cobra.Command{Use: "todoTimer"}
 
-	rootCmd.AddCommand(startTimerCmd(), stopTimerCmd(), getCurrentTodoCmd())
+	rootCmd.AddCommand(startTimerCmd(), stopTimerCmd(), getCurrentTodoCmd(), toggleCurrentTodo())
 	rootCmd.Execute()
 }

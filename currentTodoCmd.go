@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/spf13/cobra"
 )
@@ -23,6 +24,9 @@ func getCurrentTodoCmd() *cobra.Command {
 				case "id":
 					fmt.Println(response.ID)
 					os.Exit(1)
+				case "label+time":
+					pretyPrint(response.Data["label"].(string)+" "+timeDifferenceFromNow(response.Timestamp), "green", coloringMethod)
+					os.Exit(1)
 				case "label":
 					pretyPrint(response.Data["label"].(string), "green", coloringMethod)
 					os.Exit(1)
@@ -39,6 +43,27 @@ func getCurrentTodoCmd() *cobra.Command {
 					os.Exit(1)
 				}
 			} else if len(responses) == 0 {
+				fileInfo, err := os.Stat("./db")
+				if err == nil && fileInfo.Size() > 0 {
+					fileData, err := os.ReadFile("./db")
+					if err != nil {
+						fmt.Println("Error reading from file:", err)
+						return
+					}
+					retrievedNumber, err := strconv.Atoi(string(fileData))
+					if err != nil {
+						fmt.Println("Error converting string to number:", err)
+						return
+					}
+					url := "http://localhost:5600/api/0/buckets/aw-stopwatch/events/" + strconv.Itoa(retrievedNumber)
+					result, err := fetchEvent(url)
+					if err != nil {
+						fmt.Println("Error:", err)
+						return
+					}
+					pretyPrint(result.Label+" "+timeDifferenceFromNow(result.Timestamp), "yellow", coloringMethod)
+					return
+				}
 				pretyPrint("no running todo", "red", coloringMethod)
 			} else {
 				fmt.Println("have not implemented multibel todos yet you should focus in one \nher is your todos in json")

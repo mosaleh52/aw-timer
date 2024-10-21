@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func stopTimer(apiUrl, bucketId, dateLayout string, taskId int) {
+func stopTimer(apiUrl, bucketId, dateLayout string, taskId int, state bool) {
 	url := fmt.Sprintf("%sbuckets/%s/events/%d", apiUrl, bucketId, taskId)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -53,7 +53,7 @@ func stopTimer(apiUrl, bucketId, dateLayout string, taskId int) {
 	// Check if 'data' is present and is a map
 	if data, ok := jsonData["data"].(map[string]interface{}); ok {
 		// Update "running" and "duration"
-		data["running"] = false
+		data["running"] = state
 
 		// Check if 'nested' is present and is a map
 		if nested, ok := data["additionalTags"].(map[string]interface{}); ok {

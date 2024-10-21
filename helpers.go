@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"os/exec"
+	"strconv"
 	"time"
 
 	"github.com/1set/todotxt"
@@ -150,4 +152,59 @@ func pretyPrint(str, color, method string) {
 		fmt.Println("Invalid method specified")
 		os.Exit(1)
 	}
+}
+
+func timeDifferenceFromNow(timestamp string) string {
+	// Define the layout that matches the input timestamp format
+	layout := "2006-01-02T15:04:05.999999-07:00"
+
+	// Parse the input timestamp
+	t, err := time.Parse(layout, timestamp)
+	if err != nil {
+		return fmt.Sprintf("Error parsing timestamp: %v", err)
+	}
+
+	// Get the current time
+	now := time.Now()
+
+	// Calculate the difference
+	duration := t.Sub(now)
+
+	// Format the duration as a string
+	return formatDuration(duration)
+}
+
+func formatDuration(d time.Duration) string {
+	// days := int(d.Hours() / 24)
+	// hours := int(d.Hours()) % 24
+	minutes := int(d.Minutes())
+	// seconds := int(d.Seconds()) % 60
+
+	// return fmt.Sprintf("%d days, %d hours, %d minutes, %d seconds", days, hours, minutes, seconds)
+	return strconv.Itoa(minutes * -1)
+}
+
+type Result struct {
+	Timestamp string `json:"timestamp"`
+	Label     string `json:"label"`
+}
+
+func fetchEvent(url string) (*Result, error) {
+	// Construct the curl command with jq
+	cmd := exec.Command("bash", "-c", fmt.Sprintf(`curl '%s' | jq '{timestamp, label: .data.label}'`, url))
+
+	// Run the command and capture the output
+	output, err := cmd.Output()
+	if err != nil {
+		return nil, fmt.Errorf("error running curl command: %v", err)
+	}
+
+	// Unmarshal the JSON response into a Result struct
+	var result Result
+	err = json.Unmarshal(output, &result)
+	if err != nil {
+		return nil, fmt.Errorf("error unmarshalling JSON: %v", err)
+	}
+
+	return &result, nil
 }
