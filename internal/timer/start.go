@@ -1,4 +1,4 @@
-package main
+package timer
 
 import (
 	"fmt"
@@ -6,11 +6,11 @@ import (
 	"time"
 
 	"github.com/1set/todotxt"
+	"github.com/mosaleh52/aw-timer/internal/api"
+	"github.com/mosaleh52/aw-timer/internal/helpers"
 )
 
-// TODO:research why rust impemention dosnot work
-
-func startTimer(apiUrl, bucketId, dateLayout, taskString string) {
+func StartTimer(apiUrl, bucketId, dateLayout, taskString string) {
 	todoItem, err := todotxt.ParseTask(taskString)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "error parsing todo", err)
@@ -32,12 +32,12 @@ func startTimer(apiUrl, bucketId, dateLayout, taskString string) {
 		fmt.Fprintln(os.Stderr, "error in modifying to todo", err)
 		os.Exit(-1)
 	}
-	payload, err := TodoEvent{modifiedTodo}.MarshalJSON()
+	payload, err := helpers.TodoEvent{modifiedTodo}.MarshalJSON()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "error appending to file", err)
 		os.Exit(-1)
 	}
-	err = createAwEvent(apiUrl, bucketId, payload)
+	err = api.CreateAwEvent(apiUrl, bucketId, payload)
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(-1)

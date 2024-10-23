@@ -1,12 +1,9 @@
 package main
 
 import (
-	"github.com/spf13/cobra"
+	"github.com/mosaleh52/aw-timer/cmd"
 )
 
 func main() {
-	rootCmd := &cobra.Command{Use: "todoTimer"}
-
-	rootCmd.AddCommand(startTimerCmd(), stopTimerCmd(), getCurrentTodoCmd(), toggleCurrentTodo())
-	rootCmd.Execute()
+	cmd.Execute()
 }
