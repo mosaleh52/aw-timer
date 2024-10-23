@@ -185,13 +185,14 @@ func formatDuration(d time.Duration) string {
 }
 
 type Result struct {
-	Timestamp string `json:"timestamp"`
-	Label     string `json:"label"`
+	Timestamp string  `json:"timestamp"`
+	Label     string  `json:"label"`
+	Duration  float64 `json:"duration"`
 }
 
 func fetchEvent(url string) (*Result, error) {
 	// Construct the curl command with jq
-	cmd := exec.Command("bash", "-c", fmt.Sprintf(`curl '%s' | jq '{timestamp, label: .data.label}'`, url))
+	cmd := exec.Command("bash", "-c", fmt.Sprintf(`curl '%s' | jq '{timestamp, label: .data.label,duration}'`, url))
 
 	// Run the command and capture the output
 	output, err := cmd.Output()

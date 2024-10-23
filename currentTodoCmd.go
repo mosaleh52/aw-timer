@@ -61,7 +61,14 @@ func getCurrentTodoCmd() *cobra.Command {
 						fmt.Println("Error:", err)
 						return
 					}
-					pretyPrint(result.Label+" "+timeDifferenceFromNow(result.Timestamp), "yellow", coloringMethod)
+					timeFromStart, err := strconv.Atoi(timeDifferenceFromNow(result.Timestamp))
+					if err != nil {
+						fmt.Println("Error parsing int:", err)
+						return
+
+					}
+					restTime := timeFromStart - int(result.Duration)/60
+					pretyPrint(result.Label+" "+strconv.Itoa(restTime), "yellow", coloringMethod)
 					return
 				}
 				pretyPrint("no running todo", "red", coloringMethod)
