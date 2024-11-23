@@ -83,3 +83,11 @@ Flags:
 command=aw-timer current -c "i3" -r label
 interval=15
 ```
+
+## Todo
+
+- [ ] handle stop while toggle
+- [ ] refactor settings to diffrent file allowing config file
+- [ ] allow for toggling for period
+- [ ] add option for demanding uuid check or generate one random
+- [ ] add tray to control from gui with timer on it
