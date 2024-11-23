@@ -17,10 +17,10 @@ func StartTimer(apiUrl, bucketId, dateLayout, taskString string) {
 		os.Exit(-1)
 	}
 
-	if todoItem.AdditionalTags["uuid"] == "" {
-		fmt.Fprintln(os.Stderr, "to start todo there should be a uuid attr")
-		os.Exit(-1)
-	}
+	// if todoItem.AdditionalTags["uuid"] == "" {
+	// 	fmt.Fprintln(os.Stderr, "to start todo there should be a uuid attr")
+	// 	os.Exit(-1)
+	// }
 
 	if todoItem.AdditionalTags["timeStamp"] != "" {
 		fmt.Fprintln(os.Stderr, "this an already running todo")
